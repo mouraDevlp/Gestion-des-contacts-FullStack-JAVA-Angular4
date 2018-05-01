@@ -1,0 +1,43 @@
+<!--************************affichage d un panel************************-->
+<div class = "container spacer">
+    <div class = "panel panel-primary">
+        <div class = "panel-heading">Liste des contacts</div>
+        <div class = "panel-body"></div>
+
+<!--*********************recherche par mot cle ************************-->
+        <div class="form-group">
+            <label>Mot clé: </label>
+            <input type="text"  [(ngModel)]= "motCle"/>
+            <button class="btn btn-primary"  (click)="chercher()">chercher</button>
+        </div>
+
+<!--************************affichage du resultat dans un tableau***********-->
+        <table class= "table table-striped">
+            <tr>
+                <th>ID</th><th>Nom</th><th>Prenom</th><th>Email</th>
+            </tr>
+            <tr *ngFor = "let c of httpdata?.content">  <!--le ? pour gerer l exception quand l objet est nul on peut ne pas mettre si on veu pas gerer l exception-->
+                <td>{{c.id}}</td>
+                <td>{{c.nom}}</td>
+                <td>{{c.prenom}}</td>
+                <td>{{c.email}}</td>
+                <td><a (click)="onEditContact(c.id)" class="clickable" >Modifier</a></td>
+                <td><a (click)="onDeleteContact(c)" class="clickable" >Supprimer</a></td>
+            </tr>
+        </table>
+
+
+<!--****************************pagination****************************************-->
+        <div class="container">
+            <ul class="nav nav-pills">
+                <li [ngClass]="{'active': i==currentpage}" *ngFor="let p of  pages ; let i=index">
+                  <a class="clickable" (click) = "goToPage(i)">{{i}}</a> 
+                </li>
+            </ul>
+        </div> 
+
+<!--*****************************************************************************-->
+
+    </div>
+
+</div>
